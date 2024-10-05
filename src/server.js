@@ -2,7 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import { connectDB } from "./db.js";
+import userRoute from "./routes/user.route.js";
+import morgan from "morgan";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -17,10 +20,9 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+app.use("/api/user", userRoute);
 
 const runServer = async () => {
     try {
