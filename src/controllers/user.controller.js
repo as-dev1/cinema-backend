@@ -68,3 +68,42 @@ export const logout = (req, res) => {
     res.clearCookie("cinema");
     res.json({ message: "Logged out successfully" });
 };
+
+export const getCurrentUser = async (req, res) => {
+    try {
+        res.json(req.user);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+export const editProfile = async (req, res) => {
+    try {
+        const allFields = [
+            "firstName",
+            "lastName",
+            "email",
+            "phoneNumber",
+            "address",
+            "favouriteGenres",
+        ];
+
+        const updatedData = {};
+
+        for (const field of allFields) {
+            if (req.body[field]) {
+                updatedData[field] = req.body[field];
+            }
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.user._id,
+            { $set: updatedData },
+            { new: true }
+        ).select("-password");
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
