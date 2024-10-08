@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./db.js";
 import userRoute from "./routes/user.route.js";
 import movieRoute from "./routes/movie.route.js";
+import projectionRoute from "./routes/projection.route.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.use(morgan("dev"));
 
 app.use("/api/user", userRoute);
 app.use("/api/movie", movieRoute);
+app.use("/api/projection", projectionRoute);
 
 const runServer = async () => {
     try {
