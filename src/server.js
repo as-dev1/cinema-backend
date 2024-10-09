@@ -8,6 +8,7 @@ import { connectDB } from "./db.js";
 import userRoute from "./routes/user.route.js";
 import movieRoute from "./routes/movie.route.js";
 import projectionRoute from "./routes/projection.route.js";
+import reviewRoute from "./routes/review.route.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,7 @@ app.use(morgan("dev"));
 app.use("/api/user", userRoute);
 app.use("/api/movie", movieRoute);
 app.use("/api/projection", projectionRoute);
+app.use("/api/review", reviewRoute);
 
 const runServer = async () => {
     try {
