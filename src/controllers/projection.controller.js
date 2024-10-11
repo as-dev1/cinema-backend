@@ -3,7 +3,7 @@ import Projection from "../models/projection.model.js";
 export const getAllProjections = async (req, res) => {
     try {
         const projections = await Projection.find()
-            .populate("movie", "image_url name genre duration")
+            .populate("movie", "image_url name genre duration description producer actors")
             .where("starting_at")
             .gte(new Date())
             .sort({ starting_at: 1 });
